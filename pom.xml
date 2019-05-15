@@ -33,7 +33,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>net.gigadot.fox.rabbit.simulation.Simulator</mainClass>
+                            <mainClass>io.muzoo.ooc.ecosystems.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
