@@ -30,12 +30,6 @@ class Fox extends Animal{
 
     // Individual characteristics (instance fields).
 
-//    // The fox's age.
-//    private int age;
-//    // Whether the fox is alive or not.
-//    private boolean alive;
-//    // The fox's position
-//    private Location location;
     // The fox's food level, which is increased by eating rabbits.
     private int foodLevel;
 
@@ -96,16 +90,6 @@ class Fox extends Animal{
         }
     }
 
-//    /**
-//     * Increase the age. This could result in the fox's death.
-//     */
-//    public void incrementAge() {
-//        age++;
-//        if (age > MAX_AGE) {
-//            alive = false;
-//        }
-//    }
-
     /**
      * Make this fox more hungry. This could result in the fox's death.
      */
@@ -139,5 +123,9 @@ class Fox extends Animal{
             }
         }
         return null;
+    }
+
+    void setEaten() {
+        this.setAlive(false);
     }
 }
