@@ -1,5 +1,9 @@
 package io.muzoo.ooc.ecosystems;
 
+import io.muzoo.ooc.ecosystems.Animals.Fox;
+import io.muzoo.ooc.ecosystems.Animals.Rabbit;
+import io.muzoo.ooc.ecosystems.Animals.Tiger;
+
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
@@ -22,11 +26,11 @@ public class Simulator {
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 50;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.05;
+    private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a tiger will be created in any given grid position.
-    private static final double TIGER_CREATION_PROBABILITY = 0.02;
+    private static final double TIGER_CREATION_PROBABILITY = 0.01;
 
     // The list of animals in the field
     private List animals;

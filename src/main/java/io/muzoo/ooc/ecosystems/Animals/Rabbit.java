@@ -1,4 +1,7 @@
-package io.muzoo.ooc.ecosystems;
+package io.muzoo.ooc.ecosystems.Animals;
+
+import io.muzoo.ooc.ecosystems.Field;
+import io.muzoo.ooc.ecosystems.Location;
 
 import java.util.List;
 import java.util.Random;
@@ -10,7 +13,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kolling
  * @version 2002.10.28
  */
-class Rabbit extends Animal {
+public class Rabbit extends Animal {
     // Characteristics shared by all rabbits (static fields).
 
     // The age at which a rabbit can start to breed.
@@ -18,7 +21,7 @@ class Rabbit extends Animal {
     // The age to which a rabbit can live.
     private static final int MAX_AGE = 50;
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.15;
+    private static final double BREEDING_PROBABILITY = 0.1;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 5;
     // A shared random number generator to control breeding.
@@ -30,7 +33,7 @@ class Rabbit extends Animal {
      *
      * @param randomAge If true, the rabbit will have a random age.
      */
-    Rabbit(boolean randomAge) {
+    public Rabbit(boolean randomAge) {
         super();
         this.setAge(0);
         this.setAlive(true);
@@ -47,7 +50,7 @@ class Rabbit extends Animal {
      * @param newRabbits   A list to add newly born rabbits to.
      */
     @SuppressWarnings("unchecked")
-    void run(Field updatedField, List newRabbits) {
+    public void run(Field updatedField, List newRabbits) {
         incrementAge(MAX_AGE);
         if (this.getAlive()) {
             int births = breed(BREEDING_AGE,BREEDING_PROBABILITY,MAX_LITTER_SIZE);

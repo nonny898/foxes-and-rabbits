@@ -1,4 +1,6 @@
-package io.muzoo.ooc.ecosystems;
+package io.muzoo.ooc.ecosystems.Animals;
+
+import io.muzoo.ooc.ecosystems.Location;
 
 import java.util.Random;
 
@@ -17,6 +19,8 @@ class Animal {
     private boolean alive;
     // The animal's position
     private Location location;
+    // The animal's food level, which is increased by eating it's pray.
+    private int foodLevel;
 
     /**
      * Increase the age. This could result in the animal's death.
@@ -54,6 +58,14 @@ class Animal {
         this.age = age;
     }
 
+    void setFoodLevel(int foodLevel) {
+        this.foodLevel = foodLevel;
+    }
+
+    public int getFoodLevel() {
+        return foodLevel;
+    }
+
     /**
      * Check whether the animal is alive or not.
      *
@@ -66,14 +78,16 @@ class Animal {
     void setAlive(boolean alive) {
         this.alive = alive;
     }
-
+    void setEaten() {
+        this.setAlive(false);
+    }
     /**
      * Set the animal's location.
      *
      * @param row The vertical coordinate of the location.
      * @param col The horizontal coordinate of the location.
      */
-    void setLocation(int row, int col) {
+    public void setLocation(int row, int col) {
         this.location = new Location(row, col);
     }
 
