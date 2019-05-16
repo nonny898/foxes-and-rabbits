@@ -1,8 +1,6 @@
 package io.muzoo.ooc.ecosystems;
 
-import io.muzoo.ooc.ecosystems.Animals.Fox;
-import io.muzoo.ooc.ecosystems.Animals.Rabbit;
-import io.muzoo.ooc.ecosystems.Animals.Tiger;
+import io.muzoo.ooc.ecosystems.Animals.*;
 
 import java.util.Random;
 import java.util.List;
@@ -110,15 +108,12 @@ public class Simulator {
         // let all animals act
         for (Iterator iter = animals.iterator(); iter.hasNext(); ) {
             Object animal = iter.next();
-            if (animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                rabbit.run(updatedField, newAnimals);
-            } else if (animal instanceof Fox) {
-                Fox fox = (Fox) animal;
-                fox.hunt(field, updatedField, newAnimals);
-            } else if (animal instanceof Tiger) {
-                Tiger tiger = (Tiger) animal;
-                tiger.hunt(field, updatedField, newAnimals);
+            if (animal instanceof Herbivore) {
+                Herbivore herbivore = (Herbivore) animal;
+                herbivore.run(updatedField, newAnimals);
+            } else if (animal instanceof Carnivore) {
+                Carnivore carnivore = (Carnivore) animal;
+                carnivore.hunt(field, updatedField, newAnimals);
             } else {
                 System.out.println("found unknown animal");
             }
