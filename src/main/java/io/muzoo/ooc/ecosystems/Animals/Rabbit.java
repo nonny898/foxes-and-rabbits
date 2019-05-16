@@ -1,21 +1,14 @@
 package io.muzoo.ooc.ecosystems.Animals;
 
-import io.muzoo.ooc.ecosystems.Field;
-import io.muzoo.ooc.ecosystems.Location;
-
-import javax.swing.plaf.basic.BasicRadioButtonMenuItemUI;
-import java.util.List;
 import java.util.Random;
 
 /**
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
- *
  * @author David J. Barnes and Michael Kolling
  * @version 2002.10.28
  */
 public class Rabbit extends Herbivore {
-    // Characteristics shared by all rabbits (static fields).
 
     // The age at which a rabbit can start to breed.
     private static final int BREEDING_AGE = 5;
@@ -31,7 +24,6 @@ public class Rabbit extends Herbivore {
     /**
      * Create a new rabbit. A rabbit may be created with age
      * zero (a new born) or with a random age.
-     *
      * @param randomAge If true, the rabbit will have a random age.
      */
     public Rabbit(boolean randomAge) {

@@ -57,14 +57,14 @@ public class Location {
     /**
      * @return The row.
      */
-    public int getRow() {
+    int getRow() {
         return row;
     }
 
     /**
      * @return The column.
      */
-    public int getCol() {
+    int getCol() {
         return col;
     }
 }

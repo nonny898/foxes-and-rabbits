@@ -9,16 +9,15 @@ import java.util.List;
 
 public class Carnivore extends Animal {
 
-    // The age at which a fox can start to breed.
+    // The age at which can start to breed.
     private int breedingAge;
-    // The age to which a fox can live.
+    // The age to live.
     private int maxAge;
-    // The likelihood of a fox breeding.
+    // The likelihood of a breeding.
     private double breedingProbability;
     // The maximum number of births.
     private int maxLitterSize;
-    // The food value of a single rabbit. In effect, this is the
-    // number of steps a fox can go before it has to eat again.
+    // In effect, this is the number of steps before it has to eat again.
     private int foodValue;
     //  Set of  prey
     private HashSet<Class> prey;
@@ -37,14 +36,11 @@ public class Carnivore extends Animal {
         this.prey.add(prey);
     }
 
-
-
     @SuppressWarnings("unchecked")
     public void hunt(Field currentField, Field updatedField, List newAnimals) {
         incrementAge(this.maxAge);
         incrementHunger();
         if (this.getAlive()) {
-            // New foxes are born into adjacent locations.
             int births = breed(this.breedingAge, this.breedingProbability, this.maxLitterSize);
             for (int b = 0; b < births; b++) {
                 Carnivore newCarnivore = null;
@@ -56,19 +52,18 @@ public class Carnivore extends Animal {
                 }
                 newAnimals.add(newCarnivore);
                 Location loc = updatedField.randomAdjacentLocation(this.getLocation());
+                assert newCarnivore != null;
                 newCarnivore.setLocation(loc);
                 updatedField.place(newCarnivore, loc);
             }
-            // Move towards the source of food if found.
             Location newLocation = findFood(currentField, this.getLocation());
-            if (newLocation == null) {  // no food found - move randomly
+            if (newLocation == null) {
                 newLocation = updatedField.freeAdjacentLocation(this.getLocation());
             }
             if (newLocation != null) {
                 setLocation(newLocation);
                 updatedField.place(this, newLocation);
             } else {
-                // can neither move nor stay - overcrowding - all locations taken
                 this.setAlive(false);
             }
         }

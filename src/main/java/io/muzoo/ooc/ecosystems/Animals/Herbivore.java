@@ -6,16 +6,17 @@ import io.muzoo.ooc.ecosystems.Location;
 import java.util.List;
 
 public class Herbivore extends Animal {
-    // The age at which a rabbit can start to breed.
+
+    // The age at which can start to breed.
     private int breedingAge;
-    // The age to which a rabbit can live.
+    // The age to live.
     private int maxAge;
-    // The likelihood of a rabbit breeding.
+    // The likelihood of breeding.
     private double breedingProbability;
     // The maximum number of births.
     private int maxLitterSize;
 
-    public Herbivore(int breedingAge, int maxAge, double breedingProbability, int maxLitterSize) {
+    Herbivore(int breedingAge, int maxAge, double breedingProbability, int maxLitterSize) {
         super();
         this.breedingAge = breedingAge;
         this.maxAge = maxAge;
@@ -23,6 +24,7 @@ public class Herbivore extends Animal {
         this.maxLitterSize = maxLitterSize;
     }
 
+    @SuppressWarnings("unchecked")
     public void run(Field updatedField, List newRabbits) {
         incrementAge(this.maxAge);
         if (this.getAlive()) {
@@ -35,12 +37,10 @@ public class Herbivore extends Animal {
                 updatedField.place(newRabbit, loc);
             }
             Location newLocation = updatedField.freeAdjacentLocation(this.getLocation());
-            // Only transfer to the updated field if there was a free location
             if (newLocation != null) {
                 setLocation(newLocation);
                 updatedField.place(this, newLocation);
             } else {
-                // can neither move nor stay - overcrowding - all locations taken
                 this.setAlive(false);
             }
         }

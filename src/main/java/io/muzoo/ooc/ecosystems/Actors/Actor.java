@@ -10,11 +10,11 @@ public class Actor {
 
     private Location location;
 
-    public Location getLocation() {
+    private Location getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    private void setLocation(Location location) {
         this.location = location;
     }
 
@@ -23,9 +23,8 @@ public class Actor {
     }
 
     public void hunt(Field currentField, Field updatedField) {
-        // Move towards the source of food if found.
         Location newLocation = findFood(currentField, this.getLocation());
-        if (newLocation == null) {  // no food found - move randomly
+        if (newLocation == null) {
             newLocation = updatedField.freeAdjacentLocation(this.getLocation());
         }
         if (newLocation != null) {

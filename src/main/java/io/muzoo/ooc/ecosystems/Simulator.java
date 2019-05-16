@@ -7,7 +7,6 @@ import io.muzoo.ooc.ecosystems.Animals.*;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Collections;
 import java.awt.Color;
 
@@ -18,7 +17,7 @@ import java.awt.Color;
  * @author David J. Barnes and Michael Kolling
  * @version 2002.10.28
  */
-public class Simulator {
+class Simulator {
     // The private static final variables represent 
     // configuration information for the simulation.
     // The default width for the grid.
@@ -40,8 +39,6 @@ public class Simulator {
     private List newAnimals;
     // The list of animals in the field
     private List actors;
-    // The list of animals just born
-    private List newActors;
     // The current state of the field.
     private Field field;
     // A second field, used to build the next stage of the simulation.
@@ -52,19 +49,12 @@ public class Simulator {
     private SimulatorView view;
 
     /**
-     * Construct a simulation field with default size.
-     */
-    public Simulator() {
-        this(DEFAULT_DEPTH, DEFAULT_WIDTH);
-    }
-
-    /**
      * Create a simulation field with the given size.
      *
      * @param depth Depth of the field. Must be greater than zero.
      * @param width Width of the field. Must be greater than zero.
      */
-    public Simulator(int depth, int width) {
+    Simulator(int depth, int width) {
         if (width <= 0 || depth <= 0) {
             System.out.println("The dimensions must be greater than zero.");
             System.out.println("Using default values.");
@@ -74,7 +64,6 @@ public class Simulator {
         animals = new ArrayList();
         newAnimals = new ArrayList();
         actors = new ArrayList();
-        newActors = new ArrayList();
         field = new Field(depth, width);
         updatedField = new Field(depth, width);
 
@@ -90,18 +79,11 @@ public class Simulator {
     }
 
     /**
-     * Run the simulation from its current state for a reasonably long period,
-     * e.g. 500 steps.
-     */
-    public void runLongSimulation() {
-        simulate(500);
-    }
-
-    /**
      * Run the simulation from its current state for the given number of steps.
      * Stop before the given number of steps if it ceases to be viable.
      */
-    public void simulate(int numSteps) {
+    @SuppressWarnings("SameParameterValue")
+    void simulate(int numSteps) {
         for (int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
         }
@@ -112,14 +94,10 @@ public class Simulator {
      * Iterate over the whole field updating the state of each
      * fox and rabbit.
      */
-    public void simulateOneStep() {
+    private void simulateOneStep() {
         step++;
         newAnimals.clear();
-        newActors.clear();
-
-        // let all animals act
-        for (Iterator iter = animals.iterator(); iter.hasNext(); ) {
-            Object object = iter.next();
+        for (Object object : animals) {
             if (object instanceof Herbivore) {
                 Herbivore herbivore = (Herbivore) object;
                 herbivore.run(updatedField, newAnimals);
@@ -130,19 +108,18 @@ public class Simulator {
                 System.out.println("found unknown animal");
             }
         }
-
-        for (Iterator iter = actors.iterator(); iter.hasNext();) {
-            Object object = iter.next();
-            if (object instanceof Actor){
+        for (Object object : actors) {
+            if (object instanceof Actor) {
                 Actor actor = (Actor) object;
-                actor.hunt(field,updatedField);
+                actor.hunt(field, updatedField);
             } else {
                 System.out.println("found unknown animal");
             }
         }
+
         // add new born animals to the list of animals
+        // noinspection unchecked
         animals.addAll(newAnimals);
-        actors.addAll(newActors);
 
         // Swap the field and updatedField at the end of the step.
         Field temp = field;
@@ -157,7 +134,7 @@ public class Simulator {
     /**
      * Reset the simulation to a starting position.
      */
-    public void reset() {
+    private void reset() {
         step = 0;
         animals.clear();
         actors.clear();
@@ -171,7 +148,6 @@ public class Simulator {
 
     /**
      * Populate a field with foxes and rabbits.
-     *
      * @param field The field to be populated.
      */
     @SuppressWarnings("unchecked")
@@ -201,7 +177,6 @@ public class Simulator {
                     human.setLocation(row, col);
                     field.place(human, row, col);
                 }
-                // else leave the location empty.
             }
         }
         Collections.shuffle(animals);

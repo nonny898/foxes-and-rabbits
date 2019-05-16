@@ -6,12 +6,8 @@ import java.util.Random;
 
 public class Animal {
 
-    // Characteristics shared by all animals (static fields).
-
     // A shared random number generator to control breeding.
     private static final Random rand = new Random();
-
-    // Individual characteristics (instance fields).
 
     // The animal's age.
     private int age;
@@ -22,21 +18,13 @@ public class Animal {
     // The animal's food level, which is increased by eating it's pray.
     private int foodLevel;
 
-    /**
-     * Increase the age. This could result in the animal's death.
-     */
     void incrementAge(int maxAge) {
         this.age++;
         if (this.age > maxAge) {
             this.alive = false;
         }
     }
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     *
-     * @return The number of births (may be zero).
-     */
+
     int breed(int breedingAge, double breedingProbability, int maxLitterSize) {
         int births = 0;
         if (canBreed(breedingAge) && rand.nextDouble() <= breedingProbability) {
@@ -45,11 +33,6 @@ public class Animal {
         return births;
     }
 
-    /**
-     * A animal can breed if it has reached the breeding age.
-     *
-     * @return true if the animal can breed, false otherwise.
-     */
     private boolean canBreed(int breedingAge) {
         return this.age >= breedingAge;
     }
@@ -62,15 +45,10 @@ public class Animal {
         this.foodLevel = foodLevel;
     }
 
-    public int getFoodLevel() {
+    int getFoodLevel() {
         return foodLevel;
     }
 
-    /**
-     * Check whether the animal is alive or not.
-     *
-     * @return true if the animal is still alive.
-     */
     public boolean getAlive() {
         return alive;
     }
@@ -82,21 +60,11 @@ public class Animal {
     public void setEaten() {
         this.setAlive(false);
     }
-    /**
-     * Set the animal's location.
-     *
-     * @param row The vertical coordinate of the location.
-     * @param col The horizontal coordinate of the location.
-     */
+
     public void setLocation(int row, int col) {
         this.location = new Location(row, col);
     }
 
-    /**
-     * Set the animal's location.
-     *
-     * @param location The animal's location.
-     */
     void setLocation(Location location) {
         this.location = location;
     }

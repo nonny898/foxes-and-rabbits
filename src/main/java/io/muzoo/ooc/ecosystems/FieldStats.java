@@ -1,8 +1,6 @@
 package io.muzoo.ooc.ecosystems;
 
-import java.awt.Color;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * This class collects and provides some statistical data on the state
@@ -12,7 +10,7 @@ import java.util.Iterator;
  * @author David J. Barnes and Michael Kolling
  * @version 2002.04.23
  */
-public class FieldStats {
+class FieldStats {
     // Counters for each type of entity (fox, rabbit, etc.) in the simulation.
     private HashMap counters;
     // Whether the counters are currently up to date.
@@ -21,7 +19,7 @@ public class FieldStats {
     /**
      * Construct a field-statistics object.
      */
-    public FieldStats() {
+    FieldStats() {
         // Set up a collection for counters for each type of animal that
         // we might find
         counters = new HashMap();
@@ -31,14 +29,13 @@ public class FieldStats {
     /**
      * @return A string describing what animals are in the field.
      */
-    public String getPopulationDetails(Field field) {
-        StringBuffer buffer = new StringBuffer();
+    String getPopulationDetails(Field field) {
+        StringBuilder buffer = new StringBuilder();
         if (!countsValid) {
             generateCounts(field);
         }
-        Iterator keys = counters.keySet().iterator();
-        while (keys.hasNext()) {
-            Counter info = (Counter) counters.get(keys.next());
+        for (Object o : counters.keySet()) {
+            Counter info = (Counter) counters.get(o);
             buffer.append(info.getName());
             buffer.append(": ");
             buffer.append(info.getCount());
@@ -51,11 +48,10 @@ public class FieldStats {
      * Invalidate the current set of statistics; reset all
      * counts to zero.
      */
-    public void reset() {
+    void reset() {
         countsValid = false;
-        Iterator keys = counters.keySet().iterator();
-        while (keys.hasNext()) {
-            Counter cnt = (Counter) counters.get(keys.next());
+        for (Object o : counters.keySet()) {
+            Counter cnt = (Counter) counters.get(o);
             cnt.reset();
         }
     }
@@ -63,7 +59,8 @@ public class FieldStats {
     /**
      * Increment the count for one class of animal.
      */
-    public void incrementCount(Class animalClass) {
+    @SuppressWarnings("unchecked")
+    void incrementCount(Class animalClass) {
         Counter cnt = (Counter) counters.get(animalClass);
         if (cnt == null) {
             // we do not have a counter for this species yet - create one
@@ -76,7 +73,7 @@ public class FieldStats {
     /**
      * Indicate that an animal count has been completed.
      */
-    public void countFinished() {
+    void countFinished() {
         countsValid = true;
     }
 
@@ -86,15 +83,14 @@ public class FieldStats {
      *
      * @return true If there is more than one species alive.
      */
-    public boolean isViable(Field field) {
+    boolean isViable(Field field) {
         // How many counts are non-zero.
         int nonZero = 0;
         if (!countsValid) {
             generateCounts(field);
         }
-        Iterator keys = counters.keySet().iterator();
-        while (keys.hasNext()) {
-            Counter info = (Counter) counters.get(keys.next());
+        for (Object o : counters.keySet()) {
+            Counter info = (Counter) counters.get(o);
             if (info.getCount() > 0) {
                 nonZero++;
             }

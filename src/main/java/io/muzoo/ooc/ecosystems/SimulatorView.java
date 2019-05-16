@@ -1,7 +1,6 @@
 package io.muzoo.ooc.ecosystems;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import java.util.HashMap;
 
@@ -11,11 +10,10 @@ import java.util.HashMap;
  * representing its contents. It uses a default background color.
  * Colors for each type of species can be defined using the
  * setColor method.
- *
  * @author David J. Barnes and Michael Kolling
  * @version 2003.12.22
  */
-public class SimulatorView extends JFrame {
+class SimulatorView extends JFrame {
     // Colors used for empty locations.
     private static final Color EMPTY_COLOR = Color.white;
 
@@ -35,7 +33,7 @@ public class SimulatorView extends JFrame {
     /**
      * Create a view of the given width and height.
      */
-    public SimulatorView(int height, int width) {
+    SimulatorView(int height, int width) {
         stats = new FieldStats();
         colors = new HashMap();
 
@@ -57,11 +55,11 @@ public class SimulatorView extends JFrame {
 
     /**
      * Define a color to be used for a given class of animal.
-     *
      * @param animalClass The animal's Class object.
      * @param color       The color to be used for the given class.
      */
-    public void setColor(Class animalClass, Color color) {
+    @SuppressWarnings("unchecked")
+    void setColor(Class animalClass, Color color) {
         colors.put(animalClass, color);
     }
 
@@ -80,11 +78,10 @@ public class SimulatorView extends JFrame {
 
     /**
      * Show the current status of the field.
-     *
      * @param step  Which iteration step it is.
      * @param field The field whose status is to be displayed.
      */
-    public void showStatus(int step, Field field) {
+    void showStatus(int step, Field field) {
         if (!isVisible())
             setVisible(true);
 
@@ -112,10 +109,9 @@ public class SimulatorView extends JFrame {
 
     /**
      * Determine whether the simulation should continue to run.
-     *
      * @return true If there is more than one species alive.
      */
-    public boolean isViable(Field field) {
+    boolean isViable(Field field) {
         return stats.isViable(field);
     }
 
@@ -139,7 +135,7 @@ public class SimulatorView extends JFrame {
         /**
          * Create a new FieldView component.
          */
-        public FieldView(int height, int width) {
+        FieldView(int height, int width) {
             gridHeight = height;
             gridWidth = width;
             size = new Dimension(0, 0);
@@ -158,7 +154,7 @@ public class SimulatorView extends JFrame {
          * Prepare for a new round of painting. Since the component
          * may be resized, compute the scaling factor again.
          */
-        public void preparePaint() {
+        void preparePaint() {
             if (!size.equals(getSize())) {  // if the size has changed...
                 size = getSize();
                 fieldImage = fieldView.createImage(size.width, size.height);
@@ -178,7 +174,7 @@ public class SimulatorView extends JFrame {
         /**
          * Paint on grid location on this field in a given color.
          */
-        public void drawMark(int x, int y, Color color) {
+        void drawMark(int x, int y, Color color) {
             g.setColor(color);
             g.fillRect(x * xScale, y * yScale, xScale - 1, yScale - 1);
         }

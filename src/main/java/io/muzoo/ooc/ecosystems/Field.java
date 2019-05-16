@@ -13,7 +13,7 @@ import java.util.Random;
  * @version 2002.04.09
  */
 public class Field {
-    private static final Random rand = new Random();
+    private static final Random random = new Random();
 
     // The depth and width of the field.
     private int depth, width;
@@ -26,7 +26,7 @@ public class Field {
      * @param depth The depth of the field.
      * @param width The width of the field.
      */
-    public Field(int depth, int width) {
+    Field(int depth, int width) {
         this.depth = depth;
         this.width = width;
         field = new Object[depth][width];
@@ -35,7 +35,7 @@ public class Field {
     /**
      * Empty the field.
      */
-    public void clear() {
+    void clear() {
         for (int row = 0; row < depth; row++) {
             for (int col = 0; col < width; col++) {
                 field[row][col] = null;
@@ -52,7 +52,7 @@ public class Field {
      * @param row    Row coordinate of the location.
      * @param col    Column coordinate of the location.
      */
-    public void place(Object animal, int row, int col) {
+    void place(Object animal, int row, int col) {
         place(animal, new Location(row, col));
     }
 
@@ -85,7 +85,7 @@ public class Field {
      * @param col The desired column.
      * @return The animal at the given location, or null if there is none.
      */
-    public Object getObjectAt(int row, int col) {
+    Object getObjectAt(int row, int col) {
         return field[row][col];
     }
 
@@ -103,8 +103,8 @@ public class Field {
         int row = location.getRow();
         int col = location.getCol();
         // Generate an offset of -1, 0, or +1 for both the current row and col.
-        int nextRow = row + rand.nextInt(3) - 1;
-        int nextCol = col + rand.nextInt(3) - 1;
+        int nextRow = row + random.nextInt(3) - 1;
+        int nextCol = col + random.nextInt(3) - 1;
         // Check in case the new location is outside the bounds.
         if (nextRow < 0 || nextRow >= depth || nextCol < 0 || nextCol >= width) {
             return location;
@@ -148,9 +148,10 @@ public class Field {
      * to the given one. The list will not include the location itself.
      * All locations will lie within the grid.
      *
-     * @param location The location from which to generate adjacencies.
+     * @param location The location from which to generate adjacency.
      * @return An iterator over locations adjacent to that given.
      */
+    @SuppressWarnings("unchecked")
     public Iterator adjacentLocations(Location location) {
         int row = location.getRow();
         int col = location.getCol();
@@ -167,21 +168,21 @@ public class Field {
                 }
             }
         }
-        Collections.shuffle(locations, rand);
+        Collections.shuffle(locations, random);
         return locations.iterator();
     }
 
     /**
      * @return The depth of the field.
      */
-    public int getDepth() {
+    int getDepth() {
         return depth;
     }
 
     /**
      * @return The width of the field.
      */
-    public int getWidth() {
+    int getWidth() {
         return width;
     }
 }

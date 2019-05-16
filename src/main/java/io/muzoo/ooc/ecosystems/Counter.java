@@ -1,7 +1,5 @@
 package io.muzoo.ooc.ecosystems;
 
-import java.awt.Color;
-
 /**
  * Provide a counter for a participant in the simulation.
  * This includes an identifying string and a count of how
@@ -11,7 +9,7 @@ import java.awt.Color;
  * @author David J. Barnes and Michael Kolling
  * @version 2002.04.23
  */
-public class Counter {
+class Counter {
     // A name for this type of simulation participant
     private String name;
     // How many of this type exist in the simulation.
@@ -22,7 +20,7 @@ public class Counter {
      *
      * @param name A name, e.g. "Fox".
      */
-    public Counter(String name) {
+    Counter(String name) {
         this.name = name;
         count = 0;
     }
@@ -30,28 +28,28 @@ public class Counter {
     /**
      * @return The short description of this type.
      */
-    public String getName() {
+    String getName() {
         return name;
     }
 
     /**
      * @return The current count for this type.
      */
-    public int getCount() {
+    int getCount() {
         return count;
     }
 
     /**
      * Increment the current count by one.
      */
-    public void increment() {
+    void increment() {
         count++;
     }
 
     /**
      * Reset the current count to zero.
      */
-    public void reset() {
+    void reset() {
         count = 0;
     }
 }
