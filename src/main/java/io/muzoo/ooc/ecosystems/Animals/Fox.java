@@ -49,7 +49,7 @@ public class Fox extends Carnivore{
             this.setFoodLevel(FOOD_VALUE);
         }
     }
-    void setEaten() {
-        this.setAlive(false);
-    }
+//    void setEaten() {
+//        this.setAlive(false);
+//    }
 }

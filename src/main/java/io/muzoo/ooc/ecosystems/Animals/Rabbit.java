@@ -3,6 +3,7 @@ package io.muzoo.ooc.ecosystems.Animals;
 import io.muzoo.ooc.ecosystems.Field;
 import io.muzoo.ooc.ecosystems.Location;
 
+import javax.swing.plaf.basic.BasicRadioButtonMenuItemUI;
 import java.util.List;
 import java.util.Random;
 
@@ -13,7 +14,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kolling
  * @version 2002.10.28
  */
-public class Rabbit extends Animal {
+public class Rabbit extends Herbivore {
     // Characteristics shared by all rabbits (static fields).
 
     // The age at which a rabbit can start to breed.
@@ -34,49 +35,11 @@ public class Rabbit extends Animal {
      * @param randomAge If true, the rabbit will have a random age.
      */
     public Rabbit(boolean randomAge) {
-        super();
+        super(Rabbit.BREEDING_AGE,Rabbit.MAX_AGE,Rabbit.BREEDING_PROBABILITY, Rabbit.MAX_LITTER_SIZE);
         this.setAge(0);
         this.setAlive(true);
         if (randomAge) {
             this.setAge(rand.nextInt(MAX_AGE));
         }
-    }
-
-    /**
-     * This is what the rabbit does most of the time - it runs
-     * around. Sometimes it will breed or die of old age.
-     *
-     * @param updatedField The field to transfer to.
-     * @param newRabbits   A list to add newly born rabbits to.
-     */
-    @SuppressWarnings("unchecked")
-    public void run(Field updatedField, List newRabbits) {
-        incrementAge(MAX_AGE);
-        if (this.getAlive()) {
-            int births = breed(BREEDING_AGE,BREEDING_PROBABILITY,MAX_LITTER_SIZE);
-            for (int b = 0; b < births; b++) {
-                Rabbit newRabbit = new Rabbit(false);
-                newRabbits.add(newRabbit);
-                Location loc = updatedField.randomAdjacentLocation(this.getLocation());
-                newRabbit.setLocation(loc);
-                updatedField.place(newRabbit, loc);
-            }
-            Location newLocation = updatedField.freeAdjacentLocation(this.getLocation());
-            // Only transfer to the updated field if there was a free location
-            if (newLocation != null) {
-                setLocation(newLocation);
-                updatedField.place(this, newLocation);
-            } else {
-                // can neither move nor stay - overcrowding - all locations taken
-                this.setAlive(false);
-            }
-        }
-    }
-
-    /**
-     * Tell the rabbit that it's dead now :(
-     */
-    void setEaten() {
-        this.setAlive(false);
     }
 }
