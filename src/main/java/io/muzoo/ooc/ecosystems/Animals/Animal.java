@@ -4,7 +4,7 @@ import io.muzoo.ooc.ecosystems.Location;
 
 import java.util.Random;
 
-class Animal {
+public class Animal {
 
     // Characteristics shared by all animals (static fields).
 
@@ -71,7 +71,7 @@ class Animal {
      *
      * @return true if the animal is still alive.
      */
-    boolean getAlive() {
+    public boolean getAlive() {
         return alive;
     }
 
@@ -79,7 +79,7 @@ class Animal {
         this.alive = alive;
     }
 
-    void setEaten() {
+    public void setEaten() {
         this.setAlive(false);
     }
     /**

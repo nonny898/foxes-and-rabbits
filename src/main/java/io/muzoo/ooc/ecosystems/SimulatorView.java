@@ -39,7 +39,7 @@ public class SimulatorView extends JFrame {
         stats = new FieldStats();
         colors = new HashMap();
 
-        setTitle("Fox and Rabbit and Tiger Simulation");
+        setTitle("Fox and Rabbit and Tiger and HumanSimulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
 
@@ -95,10 +95,10 @@ public class SimulatorView extends JFrame {
 
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
-                Object animal = field.getObjectAt(row, col);
-                if (animal != null) {
-                    stats.incrementCount(animal.getClass());
-                    fieldView.drawMark(col, row, getColor(animal.getClass()));
+                Object object = field.getObjectAt(row, col);
+                if (object != null) {
+                    stats.incrementCount(object.getClass());
+                    fieldView.drawMark(col, row, getColor(object.getClass()));
                 } else {
                     fieldView.drawMark(col, row, EMPTY_COLOR);
                 }

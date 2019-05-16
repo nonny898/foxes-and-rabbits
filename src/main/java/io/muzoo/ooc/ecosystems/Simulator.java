@@ -1,5 +1,7 @@
 package io.muzoo.ooc.ecosystems;
 
+import io.muzoo.ooc.ecosystems.Actors.Actor;
+import io.muzoo.ooc.ecosystems.Actors.Human;
 import io.muzoo.ooc.ecosystems.Animals.*;
 
 import java.util.Random;
@@ -29,11 +31,17 @@ public class Simulator {
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a tiger will be created in any given grid position.
     private static final double TIGER_CREATION_PROBABILITY = 0.03;
+    // The probability that a tiger will be created in any given grid position.
+    private static final double HUMAN_CREATION_PROBABILITY = 0.02;
 
     // The list of animals in the field
     private List animals;
     // The list of animals just born
     private List newAnimals;
+    // The list of animals in the field
+    private List actors;
+    // The list of animals just born
+    private List newActors;
     // The current state of the field.
     private Field field;
     // A second field, used to build the next stage of the simulation.
@@ -65,6 +73,8 @@ public class Simulator {
         }
         animals = new ArrayList();
         newAnimals = new ArrayList();
+        actors = new ArrayList();
+        newActors = new ArrayList();
         field = new Field(depth, width);
         updatedField = new Field(depth, width);
 
@@ -73,6 +83,7 @@ public class Simulator {
         view.setColor(Fox.class, Color.blue);
         view.setColor(Rabbit.class, Color.orange);
         view.setColor(Tiger.class,Color.green);
+        view.setColor(Human.class,Color.black);
 
         // Setup a valid starting point.
         reset();
@@ -104,22 +115,34 @@ public class Simulator {
     public void simulateOneStep() {
         step++;
         newAnimals.clear();
+        newActors.clear();
 
         // let all animals act
         for (Iterator iter = animals.iterator(); iter.hasNext(); ) {
-            Object animal = iter.next();
-            if (animal instanceof Herbivore) {
-                Herbivore herbivore = (Herbivore) animal;
+            Object object = iter.next();
+            if (object instanceof Herbivore) {
+                Herbivore herbivore = (Herbivore) object;
                 herbivore.run(updatedField, newAnimals);
-            } else if (animal instanceof Carnivore) {
-                Carnivore carnivore = (Carnivore) animal;
+            } else if (object instanceof Carnivore) {
+                Carnivore carnivore = (Carnivore) object;
                 carnivore.hunt(field, updatedField, newAnimals);
+            } else {
+                System.out.println("found unknown animal");
+            }
+        }
+
+        for (Iterator iter = actors.iterator(); iter.hasNext();) {
+            Object object = iter.next();
+            if (object instanceof Actor){
+                Actor actor = (Actor) object;
+                actor.hunt(field,updatedField,newActors);
             } else {
                 System.out.println("found unknown animal");
             }
         }
         // add new born animals to the list of animals
         animals.addAll(newAnimals);
+        actors.addAll(newActors);
 
         // Swap the field and updatedField at the end of the step.
         Field temp = field;
@@ -137,6 +160,7 @@ public class Simulator {
     public void reset() {
         step = 0;
         animals.clear();
+        actors.clear();
         field.clear();
         updatedField.clear();
         populate(field);
@@ -150,6 +174,7 @@ public class Simulator {
      *
      * @param field The field to be populated.
      */
+    @SuppressWarnings("unchecked")
     private void populate(Field field) {
         Random rand = new Random();
         field.clear();
@@ -170,10 +195,16 @@ public class Simulator {
                     animals.add(tiger);
                     tiger.setLocation(row, col);
                     field.place(tiger, row, col);
+                } else if (rand.nextDouble() <= HUMAN_CREATION_PROBABILITY) {
+                    Human human = new Human();
+                    actors.add(human);
+                    human.setLocation(row, col);
+                    field.place(human, row, col);
                 }
                 // else leave the location empty.
             }
         }
         Collections.shuffle(animals);
+        Collections.shuffle(actors);
     }
 }

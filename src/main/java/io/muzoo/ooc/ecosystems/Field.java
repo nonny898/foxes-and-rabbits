@@ -61,11 +61,11 @@ public class Field {
      * If there is already an animal at the location it will
      * be lost.
      *
-     * @param animal   The animal to be placed.
+     * @param object   The animal to be placed.
      * @param location Where to place the animal.
      */
-    public void place(Object animal, Location location) {
-        field[location.getRow()][location.getCol()] = animal;
+    public void place(Object object, Location location) {
+        field[location.getRow()][location.getCol()] = object;
     }
 
     /**
