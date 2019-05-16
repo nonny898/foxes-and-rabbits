@@ -4,6 +4,5 @@ public class Human extends Actor {
 
     public Human() {
         super();
-        this.setAlive(true);
     }
 }

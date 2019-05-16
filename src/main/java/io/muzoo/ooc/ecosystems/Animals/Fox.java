@@ -39,6 +39,7 @@ public class Fox extends Carnivore{
         super(Fox.BREEDING_AGE,Fox.MAX_AGE,Fox.BREEDING_PROBABILITY,Fox.MAX_LITTER_SIZE,Fox.FOOD_VALUE);
         this.setAge(0);
         this.setAlive(true);
+        this.addPrey(Rabbit.class);
         if (randomAge) {
             // A shared random number generator to control breeding.
             Random random = new Random();

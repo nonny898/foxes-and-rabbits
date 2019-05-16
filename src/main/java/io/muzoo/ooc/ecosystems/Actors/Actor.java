@@ -5,12 +5,10 @@ import io.muzoo.ooc.ecosystems.Field;
 import io.muzoo.ooc.ecosystems.Location;
 
 import java.util.Iterator;
-import java.util.List;
 
 public class Actor {
 
     private Location location;
-    private boolean alive;
 
     public Location getLocation() {
         return location;
@@ -24,26 +22,15 @@ public class Actor {
         this.location = new Location(row, col);
     }
 
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
-    @SuppressWarnings("unchecked")
-    public void hunt(Field currentField, Field updatedField, List newAnimals) {
-        if (this.isAlive()) {
-            // Move towards the source of food if found.
-            Location newLocation = findFood(currentField, this.getLocation());
-            if (newLocation == null) {  // no food found - move randomly
-                newLocation = updatedField.freeAdjacentLocation(this.getLocation());
-            }
-            if (newLocation != null) {
-                setLocation(newLocation);
-                updatedField.place(this, newLocation);
-            }
+    public void hunt(Field currentField, Field updatedField) {
+        // Move towards the source of food if found.
+        Location newLocation = findFood(currentField, this.getLocation());
+        if (newLocation == null) {  // no food found - move randomly
+            newLocation = updatedField.freeAdjacentLocation(this.getLocation());
+        }
+        if (newLocation != null) {
+            setLocation(newLocation);
+            updatedField.place(this, newLocation);
         }
     }
 

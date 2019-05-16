@@ -1,5 +1,7 @@
 package io.muzoo.ooc.ecosystems.Animals;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 public class Tiger extends Carnivore {
@@ -21,6 +23,8 @@ public class Tiger extends Carnivore {
         super(Tiger.BREEDING_AGE,Tiger.MAX_AGE,Tiger.BREEDING_PROBABILITY,Tiger.MAX_LITTER_SIZE,Tiger.FOOD_VALUE);
         this.setAge(0);
         this.setAlive(true);
+        this.addPrey(Fox.class);
+        this.addPrey(Rabbit.class);
         if (randomAge) {
             // A shared random number generator to control breeding.
             Random random = new Random();

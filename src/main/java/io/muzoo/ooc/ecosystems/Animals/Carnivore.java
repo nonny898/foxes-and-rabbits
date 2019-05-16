@@ -3,6 +3,7 @@ package io.muzoo.ooc.ecosystems.Animals;
 import io.muzoo.ooc.ecosystems.Field;
 import io.muzoo.ooc.ecosystems.Location;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class Carnivore extends Animal {
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
     private int foodValue;
+    //  Set of  prey
+    private HashSet<Class> prey;
 
     Carnivore(int breedingAge, int maxAge, double breedingProbability, int maxLitterSize, int foodValue) {
         super();
@@ -27,7 +30,14 @@ public class Carnivore extends Animal {
         this.breedingProbability = breedingProbability;
         this.maxLitterSize = maxLitterSize;
         this.foodValue = foodValue;
+        this.prey = new HashSet<>();
     }
+
+    void addPrey(Class prey) {
+        this.prey.add(prey);
+    }
+
+
 
     @SuppressWarnings("unchecked")
     public void hunt(Field currentField, Field updatedField, List newAnimals) {
@@ -80,31 +90,15 @@ public class Carnivore extends Animal {
         while (adjacentLocations.hasNext()) {
             Location where = (Location) adjacentLocations.next();
             Object animal = field.getObjectAt(where);
-            if (this instanceof Fox) {
-                if (animal instanceof Rabbit) {
-                    Rabbit rabbit = (Rabbit) animal;
-                    if (rabbit.getAlive()) {
-                        rabbit.setEaten();
+            if (animal != null) {
+                if (this.prey.contains(animal.getClass())) {
+                    Animal animal1 = (Animal) animal;
+                    if (animal1.getAlive()) {
+                        animal1.setEaten();
                         this.setFoodLevel(this.foodValue);
                         return where;
                     }
                 }
-            } else if (this instanceof Tiger) {
-                    if (animal instanceof Fox) {
-                        Fox fox = (Fox) animal;
-                        if (fox.getAlive()) {
-                            fox.setEaten();
-                            this.setFoodLevel(this.foodValue);
-                            return where;
-                        }
-                    } else if (animal instanceof Rabbit) {
-                        Rabbit rabbit = (Rabbit) animal;
-                        if (rabbit.getAlive()) {
-                            rabbit.setEaten();
-                            this.setFoodLevel(this.foodValue);
-                            return where;
-                        }
-                    }
             }
         }
         return null;

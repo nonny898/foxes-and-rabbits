@@ -135,7 +135,7 @@ public class Simulator {
             Object object = iter.next();
             if (object instanceof Actor){
                 Actor actor = (Actor) object;
-                actor.hunt(field,updatedField,newActors);
+                actor.hunt(field,updatedField);
             } else {
                 System.out.println("found unknown animal");
             }
