@@ -8,14 +8,14 @@ public class Tiger extends Carnivore {
     // The age at which a tiger can start to breed.
     private static final int BREEDING_AGE = 10;
     // The age to which a tiger can live.
-    private static final int MAX_AGE = 100;
+    private static final int MAX_AGE = 50;
     // The likelihood of a tiger breeding.
-    private static final double BREEDING_PROBABILITY = 0.02;
+    private static final double BREEDING_PROBABILITY = 0.05;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 3;
+    private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single foxes. In effect, this is the
     // number of steps a tiger can go before it has to eat again.
-    private static final int FOOD_VALUE = 1;
+    private static final int FOOD_VALUE = 5;
 
     public Tiger(boolean randomAge) {
         super(Tiger.BREEDING_AGE,Tiger.MAX_AGE,Tiger.BREEDING_PROBABILITY,Tiger.MAX_LITTER_SIZE,Tiger.FOOD_VALUE);

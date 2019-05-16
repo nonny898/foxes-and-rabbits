@@ -78,6 +78,7 @@ class Animal {
     void setAlive(boolean alive) {
         this.alive = alive;
     }
+
     void setEaten() {
         this.setAlive(false);
     }

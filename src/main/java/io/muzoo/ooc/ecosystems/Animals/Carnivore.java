@@ -66,8 +66,12 @@ public class Carnivore extends Animal {
 
     private void incrementHunger() {
         int foodLevel = this.getFoodLevel();
+        foodLevel= foodLevel- 1;
         if (foodLevel <= 0) {
             this.setAlive(false);
+        }
+        else {
+            this.setFoodLevel(foodLevel);
         }
     }
 
@@ -76,20 +80,31 @@ public class Carnivore extends Animal {
         while (adjacentLocations.hasNext()) {
             Location where = (Location) adjacentLocations.next();
             Object animal = field.getObjectAt(where);
-            if (animal instanceof Fox) {
-                Fox pray = (Fox) animal;
-                if (pray.getAlive()) {
-                    pray.setEaten();
-                    this.setFoodLevel(this.foodValue);
-                    return where;
+            if (this instanceof Fox) {
+                if (animal instanceof Rabbit) {
+                    Rabbit rabbit = (Rabbit) animal;
+                    if (rabbit.getAlive()) {
+                        rabbit.setEaten();
+                        this.setFoodLevel(this.foodValue);
+                        return where;
+                    }
                 }
-            } else if (animal instanceof Rabbit) {
-                Rabbit pray = (Rabbit) animal;
-                if (pray.getAlive()) {
-                    pray.setEaten();
-                    this.setFoodLevel(this.foodValue);
-                    return where;
-                }
+            } else if (this instanceof Tiger) {
+                    if (animal instanceof Fox) {
+                        Fox fox = (Fox) animal;
+                        if (fox.getAlive()) {
+                            fox.setEaten();
+                            this.setFoodLevel(this.foodValue);
+                            return where;
+                        }
+                    } else if (animal instanceof Rabbit) {
+                        Rabbit rabbit = (Rabbit) animal;
+                        if (rabbit.getAlive()) {
+                            rabbit.setEaten();
+                            this.setFoodLevel(this.foodValue);
+                            return where;
+                        }
+                    }
             }
         }
         return null;
