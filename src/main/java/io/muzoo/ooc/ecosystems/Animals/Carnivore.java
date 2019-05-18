@@ -40,7 +40,7 @@ public class Carnivore extends Animal {
     public void hunt(Field currentField, Field updatedField, List newAnimals) {
         incrementAge(this.maxAge);
         incrementHunger();
-        if (this.getAlive()) {
+        if (this.isAlive()) {
             int births = breed(this.breedingAge, this.breedingProbability, this.maxLitterSize);
             for (int b = 0; b < births; b++) {
                 Carnivore newCarnivore = null;
@@ -88,7 +88,7 @@ public class Carnivore extends Animal {
             if (animal != null) {
                 if (this.prey.contains(animal.getClass())) {
                     Animal animal1 = (Animal) animal;
-                    if (animal1.getAlive()) {
+                    if (animal1.isAlive()) {
                         animal1.setEaten();
                         this.setFoodLevel(this.foodValue);
                         return where;

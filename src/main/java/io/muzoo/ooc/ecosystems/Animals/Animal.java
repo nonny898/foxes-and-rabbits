@@ -49,7 +49,7 @@ public class Animal {
         return foodLevel;
     }
 
-    public boolean getAlive() {
+    public boolean isAlive() {
         return alive;
     }
 

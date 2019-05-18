@@ -27,13 +27,15 @@ class Simulator {
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 50;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.03;
+    private static final double FOX_CREATION_PROBABILITY = 0.0;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a tiger will be created in any given grid position.
-    private static final double TIGER_CREATION_PROBABILITY = 0.02;
-    // The probability that a tiger will be created in any given grid position.
-    private static final double HUMAN_CREATION_PROBABILITY = 0.0012;
+    private static final double TIGER_CREATION_PROBABILITY = 0.0;
+    // The probability that a male will be created in any given grid position.
+    private static final double MALE_CREATION_PROBABILITY = 0.1;
+    // The probability that a female will be created in any given grid position.
+    private static final double FEMALE_CREATION_PROBABILITY = 0.1;
 
     // The list of animals in the field
     private List animals;
@@ -76,9 +78,9 @@ class Simulator {
         view = new SimulatorView(depth, width);
         view.setColor(Fox.class, Color.blue);
         view.setColor(Rabbit.class, Color.orange);
-        view.setColor(Tiger.class,Color.green);
-        view.setColor(Male.class,Color.black);
-        view.setColor(Female.class,Color.red);
+        view.setColor(Tiger.class, Color.green);
+        view.setColor(Male.class, Color.black);
+        view.setColor(Female.class, Color.red);
 
         // Setup a valid starting point.
         reset();
@@ -100,6 +102,7 @@ class Simulator {
      * Iterate over the whole field updating the state of each
      * fox and rabbit.
      */
+    @SuppressWarnings("unchecked")
     private void simulateOneStep() {
         step++;
         newAnimals.clear();
@@ -117,20 +120,13 @@ class Simulator {
         for (Object object : actors) {
             if (object instanceof Actor) {
                 Actor actor = (Actor) object;
-                actor.hunt(field, updatedField);
-                if (actor instanceof Human) {
-                    if (actor instanceof Male) {
-                        Male male = (Male) actor;
-                        male.mate(field,updatedField,newHumans);
-                    }
-                }
+                actor.hunt(field, updatedField,newHumans);
             } else {
                 System.out.println("found unknown actor");
             }
         }
 
         // add new born animals to the list of animals
-        // noinspection unchecked
         animals.addAll(newAnimals);
         actors.addAll(newHumans);
 
@@ -161,6 +157,7 @@ class Simulator {
 
     /**
      * Populate a field with foxes and rabbits.
+     *
      * @param field The field to be populated.
      */
     @SuppressWarnings("unchecked")
@@ -184,14 +181,13 @@ class Simulator {
                     animals.add(tiger);
                     tiger.setLocation(row, col);
                     field.place(tiger, row, col);
-                } else if (rand.nextDouble() <= HUMAN_CREATION_PROBABILITY) {
-                    Male male = new Male();
+                } else if (rand.nextDouble() <= MALE_CREATION_PROBABILITY) {
+                    Male male = new Male(true);
                     actors.add(male);
                     male.setLocation(row, col);
                     field.place(male, row, col);
-                }
-                else if (rand.nextDouble() <= HUMAN_CREATION_PROBABILITY) {
-                    Female female = new Female();
+                } else if (rand.nextDouble() <= FEMALE_CREATION_PROBABILITY) {
+                    Female female = new Female(true);
                     actors.add(female);
                     female.setLocation(row, col);
                     field.place(female, row, col);

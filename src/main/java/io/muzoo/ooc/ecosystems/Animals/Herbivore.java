@@ -27,7 +27,7 @@ public class Herbivore extends Animal {
     @SuppressWarnings("unchecked")
     public void run(Field updatedField, List newRabbits) {
         incrementAge(this.maxAge);
-        if (this.getAlive()) {
+        if (this.isAlive()) {
             int births = breed(this.breedingAge, this.breedingProbability, this.maxLitterSize);
             for (int b = 0; b < births; b++) {
                 Rabbit newRabbit = new Rabbit(false);
