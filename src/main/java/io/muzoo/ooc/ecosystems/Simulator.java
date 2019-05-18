@@ -1,7 +1,9 @@
 package io.muzoo.ooc.ecosystems;
 
 import io.muzoo.ooc.ecosystems.Actors.Actor;
+import io.muzoo.ooc.ecosystems.Actors.Female;
 import io.muzoo.ooc.ecosystems.Actors.Human;
+import io.muzoo.ooc.ecosystems.Actors.Male;
 import io.muzoo.ooc.ecosystems.Animals.*;
 
 import java.util.Random;
@@ -25,20 +27,22 @@ class Simulator {
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 50;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.02;
+    private static final double FOX_CREATION_PROBABILITY = 0.03;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a tiger will be created in any given grid position.
-    private static final double TIGER_CREATION_PROBABILITY = 0.03;
+    private static final double TIGER_CREATION_PROBABILITY = 0.02;
     // The probability that a tiger will be created in any given grid position.
-    private static final double HUMAN_CREATION_PROBABILITY = 0.02;
+    private static final double HUMAN_CREATION_PROBABILITY = 0.0012;
 
     // The list of animals in the field
     private List animals;
     // The list of animals just born
     private List newAnimals;
-    // The list of animals in the field
+    // The list of actors in the field
     private List actors;
+    // The list of human just born
+    private List newHumans;
     // The current state of the field.
     private Field field;
     // A second field, used to build the next stage of the simulation.
@@ -64,6 +68,7 @@ class Simulator {
         animals = new ArrayList();
         newAnimals = new ArrayList();
         actors = new ArrayList();
+        newHumans = new ArrayList();
         field = new Field(depth, width);
         updatedField = new Field(depth, width);
 
@@ -72,7 +77,8 @@ class Simulator {
         view.setColor(Fox.class, Color.blue);
         view.setColor(Rabbit.class, Color.orange);
         view.setColor(Tiger.class,Color.green);
-        view.setColor(Human.class,Color.black);
+        view.setColor(Male.class,Color.black);
+        view.setColor(Female.class,Color.red);
 
         // Setup a valid starting point.
         reset();
@@ -112,14 +118,21 @@ class Simulator {
             if (object instanceof Actor) {
                 Actor actor = (Actor) object;
                 actor.hunt(field, updatedField);
+                if (actor instanceof Human) {
+                    if (actor instanceof Male) {
+                        Male male = (Male) actor;
+                        male.mate(field,updatedField,newHumans);
+                    }
+                }
             } else {
-                System.out.println("found unknown animal");
+                System.out.println("found unknown actor");
             }
         }
 
         // add new born animals to the list of animals
         // noinspection unchecked
         animals.addAll(newAnimals);
+        actors.addAll(newHumans);
 
         // Swap the field and updatedField at the end of the step.
         Field temp = field;
@@ -172,10 +185,16 @@ class Simulator {
                     tiger.setLocation(row, col);
                     field.place(tiger, row, col);
                 } else if (rand.nextDouble() <= HUMAN_CREATION_PROBABILITY) {
-                    Human human = new Human();
-                    actors.add(human);
-                    human.setLocation(row, col);
-                    field.place(human, row, col);
+                    Male male = new Male();
+                    actors.add(male);
+                    male.setLocation(row, col);
+                    field.place(male, row, col);
+                }
+                else if (rand.nextDouble() <= HUMAN_CREATION_PROBABILITY) {
+                    Female female = new Female();
+                    actors.add(female);
+                    female.setLocation(row, col);
+                    field.place(female, row, col);
                 }
             }
         }

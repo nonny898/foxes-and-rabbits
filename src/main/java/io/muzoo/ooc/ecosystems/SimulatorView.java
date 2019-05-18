@@ -37,7 +37,7 @@ class SimulatorView extends JFrame {
         stats = new FieldStats();
         colors = new HashMap();
 
-        setTitle("Fox and Rabbit and Tiger and HumanSimulation");
+        setTitle("Fox and Rabbit and Tiger and Human Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
 

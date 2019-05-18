@@ -5,16 +5,18 @@ import io.muzoo.ooc.ecosystems.Field;
 import io.muzoo.ooc.ecosystems.Location;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class Actor {
 
     private Location location;
 
-    private Location getLocation() {
+    Location getLocation() {
         return location;
     }
 
-    private void setLocation(Location location) {
+    void setLocation(Location location) {
         this.location = location;
     }
 
