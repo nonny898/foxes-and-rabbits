@@ -12,20 +12,20 @@ import java.util.Random;
 public class Actor extends Living {
 
     // The age at which can start to breed.
-    int breedingAge;
+    private int breedingAge;
     // The age to live.
     private int maxAge;
     // The likelihood of a breeding.
-    double breedingProbability;
+    private double breedingProbability;
     // The maximum number of births.
-    int maxLitterSize;
+    private int maxLitterSize;
     // In effect, this is the number of steps before it has to eat again.
     private int foodValue;
 
     // A shared random number generator to control breeding.
     private static final Random rand = new Random();
 
-    public Actor(int breedingAge, int maxAge, double breedingProbability, int maxLitterSize, int foodValue) {
+    Actor(int breedingAge, int maxAge, double breedingProbability, int maxLitterSize, int foodValue) {
         this.breedingAge = breedingAge;
         this.maxAge = maxAge;
         this.breedingProbability = breedingProbability;
@@ -61,6 +61,7 @@ public class Actor extends Living {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     private Location findPartner(Field field, Field updatedField, Location location, List newHumans) {
         Iterator adjacentLocations = field.adjacentLocations(location);
         while (adjacentLocations.hasNext()) {
@@ -71,14 +72,14 @@ public class Actor extends Living {
                 for (int i = 0; i < birth; i++) {
                     int gender = rand.nextInt(2);
                     if (gender == 1) {
-                        Male newMale = new Male(false);
+                        Male newMale = new Male();
                         newHumans.add(newMale);
                         Location loc = updatedField.randomAdjacentLocation(this.getLocation());
                         assert newMale != null;
                         newMale.setLocation(loc);
                         updatedField.place(newMale, loc);
                     } else {
-                        Female newFemale = new Female(false);
+                        Female newFemale = new Female();
                         newHumans.add(newFemale);
                         Location loc = updatedField.randomAdjacentLocation(this.getLocation());
                         assert newFemale != null;

@@ -28,7 +28,7 @@ class Simulator {
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.04;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;
+    private static final double RABBIT_CREATION_PROBABILITY = 0.1;
     // The probability that a tiger will be created in any given grid position.
     private static final double TIGER_CREATION_PROBABILITY = 0.07;
     // The probability that a male will be created in any given grid position.
@@ -181,12 +181,12 @@ class Simulator {
                     tiger.setLocation(row, col);
                     field.place(tiger, row, col);
                 } else if (rand.nextDouble() <= MALE_CREATION_PROBABILITY) {
-                    Male male = new Male(true);
+                    Male male = new Male();
                     actors.add(male);
                     male.setLocation(row, col);
                     field.place(male, row, col);
                 } else if (rand.nextDouble() <= FEMALE_CREATION_PROBABILITY) {
-                    Female female = new Female(true);
+                    Female female = new Female();
                     actors.add(female);
                     female.setLocation(row, col);
                     field.place(female, row, col);

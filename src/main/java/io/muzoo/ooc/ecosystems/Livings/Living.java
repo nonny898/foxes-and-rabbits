@@ -18,19 +18,19 @@ public class Living {
     // A shared random number generator to control breeding.
     private static final Random rand = new Random();
 
-    public boolean canBreed(int breedingAge) {
+    private boolean canBreed(int breedingAge) {
         return this.age >= breedingAge;
     }
 
-    public void setAge(int age) {
+    protected void setAge(int age) {
         this.age = age;
     }
 
-    public void setFoodLevel(int foodLevel) {
+    protected void setFoodLevel(int foodLevel) {
         this.foodLevel = foodLevel;
     }
 
-    public int getFoodLevel() {
+    private int getFoodLevel() {
         return foodLevel;
     }
 
@@ -38,7 +38,7 @@ public class Living {
         return alive;
     }
 
-    public void setAlive(boolean alive) {
+    protected void setAlive(boolean alive) {
         this.alive = alive;
     }
 
@@ -54,18 +54,18 @@ public class Living {
         this.location = location;
     }
 
-    public Location getLocation() {
+    protected Location getLocation() {
         return location;
     }
 
-    public void incrementAge(int maxAge) {
+    protected void incrementAge(int maxAge) {
         this.age++;
         if (this.age > maxAge) {
             this.alive = false;
         }
     }
 
-    public void incrementHunger() {
+    protected void incrementHunger() {
         int foodLevel = this.getFoodLevel();
         foodLevel = foodLevel - 1;
         if (foodLevel <= 0) {
@@ -75,7 +75,7 @@ public class Living {
         }
     }
 
-    public int breed(int breedingAge, double breedingProbability, int maxLitterSize) {
+    protected int breed(int breedingAge, double breedingProbability, int maxLitterSize) {
         int births = 0;
         if (canBreed(breedingAge) && rand.nextDouble() <= breedingProbability) {
             births = rand.nextInt(maxLitterSize) + 1;
@@ -83,7 +83,7 @@ public class Living {
         return births;
     }
 
-    public void move(Location newLocation, Field updatedField) {
+    protected void move(Location newLocation, Field updatedField) {
         if (newLocation == null) {
             newLocation = updatedField.freeAdjacentLocation(this.getLocation());
         }
