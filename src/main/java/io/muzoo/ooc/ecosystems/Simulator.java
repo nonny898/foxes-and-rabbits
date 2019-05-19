@@ -1,10 +1,9 @@
 package io.muzoo.ooc.ecosystems;
 
-import io.muzoo.ooc.ecosystems.Actors.Actor;
-import io.muzoo.ooc.ecosystems.Actors.Female;
-import io.muzoo.ooc.ecosystems.Actors.Human;
-import io.muzoo.ooc.ecosystems.Actors.Male;
-import io.muzoo.ooc.ecosystems.Animals.*;
+import io.muzoo.ooc.ecosystems.Livings.Actors.Actor;
+import io.muzoo.ooc.ecosystems.Livings.Actors.Female;
+import io.muzoo.ooc.ecosystems.Livings.Actors.Male;
+import io.muzoo.ooc.ecosystems.Livings.Animals.*;
 
 import java.util.Random;
 import java.util.List;
@@ -27,15 +26,15 @@ class Simulator {
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 50;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.0;
+    private static final double FOX_CREATION_PROBABILITY = 0.04;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a tiger will be created in any given grid position.
-    private static final double TIGER_CREATION_PROBABILITY = 0.0;
+    private static final double TIGER_CREATION_PROBABILITY = 0.07;
     // The probability that a male will be created in any given grid position.
-    private static final double MALE_CREATION_PROBABILITY = 0.1;
+    private static final double MALE_CREATION_PROBABILITY = 0.01;
     // The probability that a female will be created in any given grid position.
-    private static final double FEMALE_CREATION_PROBABILITY = 0.1;
+    private static final double FEMALE_CREATION_PROBABILITY = 0.01;
 
     // The list of animals in the field
     private List animals;

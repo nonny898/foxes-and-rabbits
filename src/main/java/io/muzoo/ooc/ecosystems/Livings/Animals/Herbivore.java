@@ -1,4 +1,4 @@
-package io.muzoo.ooc.ecosystems.Animals;
+package io.muzoo.ooc.ecosystems.Livings.Animals;
 
 import io.muzoo.ooc.ecosystems.Field;
 import io.muzoo.ooc.ecosystems.Location;
@@ -37,12 +37,7 @@ public class Herbivore extends Animal {
                 updatedField.place(newRabbit, loc);
             }
             Location newLocation = updatedField.freeAdjacentLocation(this.getLocation());
-            if (newLocation != null) {
-                setLocation(newLocation);
-                updatedField.place(this, newLocation);
-            } else {
-                this.setAlive(false);
-            }
+            this.move(newLocation, updatedField);
         }
     }
 }

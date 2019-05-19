@@ -1,4 +1,4 @@
-package io.muzoo.ooc.ecosystems.Actors;
+package io.muzoo.ooc.ecosystems.Livings.Actors;
 
 public class Human extends Actor {
 

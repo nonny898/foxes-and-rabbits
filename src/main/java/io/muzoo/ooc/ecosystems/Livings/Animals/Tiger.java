@@ -1,4 +1,4 @@
-package io.muzoo.ooc.ecosystems.Animals;
+package io.muzoo.ooc.ecosystems.Livings.Animals;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package io.muzoo.ooc.ecosystems.Animals;
+package io.muzoo.ooc.ecosystems.Livings.Animals;
 
 import java.util.Random;
 
@@ -18,8 +18,6 @@ public class Rabbit extends Herbivore {
     private static final double BREEDING_PROBABILITY = 0.15;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 5;
-    // A shared random number generator to control breeding.
-    private static final Random rand = new Random();
 
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -31,7 +29,8 @@ public class Rabbit extends Herbivore {
         this.setAge(0);
         this.setAlive(true);
         if (randomAge) {
-            this.setAge(rand.nextInt(MAX_AGE));
+            Random random = new Random();
+            this.setAge(random.nextInt(MAX_AGE));
         }
     }
 }

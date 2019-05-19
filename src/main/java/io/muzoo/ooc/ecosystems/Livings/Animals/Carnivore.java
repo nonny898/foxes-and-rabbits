@@ -1,4 +1,4 @@
-package io.muzoo.ooc.ecosystems.Animals;
+package io.muzoo.ooc.ecosystems.Livings.Animals;
 
 import io.muzoo.ooc.ecosystems.Field;
 import io.muzoo.ooc.ecosystems.Location;
@@ -56,27 +56,8 @@ public class Carnivore extends Animal {
                 newCarnivore.setLocation(loc);
                 updatedField.place(newCarnivore, loc);
             }
-            Location newLocation = findFood(currentField, this.getLocation());
-            if (newLocation == null) {
-                newLocation = updatedField.freeAdjacentLocation(this.getLocation());
-            }
-            if (newLocation != null) {
-                setLocation(newLocation);
-                updatedField.place(this, newLocation);
-            } else {
-                this.setAlive(false);
-            }
-        }
-    }
-
-    private void incrementHunger() {
-        int foodLevel = this.getFoodLevel();
-        foodLevel= foodLevel- 1;
-        if (foodLevel <= 0) {
-            this.setAlive(false);
-        }
-        else {
-            this.setFoodLevel(foodLevel);
+            Location newFoodLocation = findFood(currentField, this.getLocation());
+            this.move(newFoodLocation, updatedField);
         }
     }
 
