@@ -1,6 +1,6 @@
 package io.muzoo.ooc.ecosystems.Livings.Actors;
 
-public class Male extends Human {
+public class Male extends Hunter {
 
     // The age at which a Male can start to breed.
     private static final int BREEDING_AGE = 18;
