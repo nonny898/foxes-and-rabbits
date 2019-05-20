@@ -1,4 +1,4 @@
-package io.muzoo.ooc.ecosystems.Livings.Actors;
+package io.muzoo.ooc.ecosystems.Actors.Hunters;
 
 public class Female extends Hunter {
 

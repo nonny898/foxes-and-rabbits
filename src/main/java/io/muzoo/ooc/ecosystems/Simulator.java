@@ -1,9 +1,9 @@
 package io.muzoo.ooc.ecosystems;
 
-import io.muzoo.ooc.ecosystems.Livings.Actors.Actor;
-import io.muzoo.ooc.ecosystems.Livings.Actors.Female;
-import io.muzoo.ooc.ecosystems.Livings.Actors.Male;
-import io.muzoo.ooc.ecosystems.Livings.Animals.*;
+import io.muzoo.ooc.ecosystems.Actors.Hunters.Female;
+import io.muzoo.ooc.ecosystems.Actors.Hunters.Hunter;
+import io.muzoo.ooc.ecosystems.Actors.Hunters.Male;
+import io.muzoo.ooc.ecosystems.Actors.Animals.*;
 
 import java.util.Random;
 import java.util.List;
@@ -40,8 +40,8 @@ class Simulator {
     private List animals;
     // The list of animals just born
     private List newAnimals;
-    // The list of actors in the field
-    private List actors;
+    // The list of humans in the field
+    private List humans;
     // The list of human just born
     private List newHumans;
     // The current state of the field.
@@ -68,7 +68,7 @@ class Simulator {
         }
         animals = new ArrayList();
         newAnimals = new ArrayList();
-        actors = new ArrayList();
+        humans = new ArrayList();
         newHumans = new ArrayList();
         field = new Field(depth, width);
         updatedField = new Field(depth, width);
@@ -109,25 +109,28 @@ class Simulator {
             if (object instanceof Herbivore) {
                 Herbivore herbivore = (Herbivore) object;
                 herbivore.run(updatedField, newAnimals);
+                herbivore.breed(herbivore.getClass(), updatedField, newAnimals, herbivore.breedingAge, herbivore.breedingProbability, herbivore.maxLitterSize);
             } else if (object instanceof Carnivore) {
                 Carnivore carnivore = (Carnivore) object;
                 carnivore.hunt(field, updatedField, newAnimals);
+                carnivore.breed(carnivore.getClass(), updatedField, newAnimals, carnivore.breedingAge, carnivore.breedingProbability, carnivore.maxLitterSize);
             } else {
                 System.out.println("found unknown animal");
             }
         }
-        for (Object object : actors) {
-            if (object instanceof Actor) {
-                Actor actor = (Actor) object;
-                actor.hunt(field, updatedField,newHumans);
+        for (Object object : humans) {
+            if (object instanceof Hunter) {
+                Hunter hunter = (Hunter) object;
+                hunter.hunt(field, updatedField,newHumans);
+                hunter.mate(field,updatedField,newHumans);
             } else {
-                System.out.println("found unknown actor");
+                System.out.println("found unknown hunter");
             }
         }
 
         // add new born animals to the list of animals
         animals.addAll(newAnimals);
-        actors.addAll(newHumans);
+        humans.addAll(newHumans);
 
         // Swap the field and updatedField at the end of the step.
         Field temp = field;
@@ -145,7 +148,7 @@ class Simulator {
     private void reset() {
         step = 0;
         animals.clear();
-        actors.clear();
+        humans.clear();
         field.clear();
         updatedField.clear();
         populate(field);
@@ -182,18 +185,18 @@ class Simulator {
                     field.place(tiger, row, col);
                 } else if (rand.nextDouble() <= MALE_CREATION_PROBABILITY) {
                     Male male = new Male();
-                    actors.add(male);
+                    humans.add(male);
                     male.setLocation(row, col);
                     field.place(male, row, col);
                 } else if (rand.nextDouble() <= FEMALE_CREATION_PROBABILITY) {
                     Female female = new Female();
-                    actors.add(female);
+                    humans.add(female);
                     female.setLocation(row, col);
                     field.place(female, row, col);
                 }
             }
         }
         Collections.shuffle(animals);
-        Collections.shuffle(actors);
+        Collections.shuffle(humans);
     }
 }
