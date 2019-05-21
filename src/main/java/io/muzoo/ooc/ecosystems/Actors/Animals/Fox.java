@@ -25,19 +25,12 @@ public class Fox extends Carnivore{
     /**
      * Create a fox. A fox can be created as a new born (age zero
      * and not hungry) or with random age.
-     * @param randomAge If true, the fox will have random age and hunger level.
      */
-    public Fox(boolean randomAge) {
-        super(Fox.BREEDING_AGE,Fox.MAX_AGE,Fox.BREEDING_PROBABILITY,Fox.MAX_LITTER_SIZE,Fox.FOOD_VALUE);
-        this.setAge(0);
+    public Fox() {
+        super(BREEDING_AGE,MAX_AGE,BREEDING_PROBABILITY,MAX_LITTER_SIZE,FOOD_VALUE);
         this.setAlive(true);
+        this.setAge(0);
+        this.setFoodLevel(FOOD_VALUE);
         this.addPrey(Rabbit.class);
-        if (randomAge) {
-            Random random = new Random();
-            this.setAge(random.nextInt(MAX_AGE));
-            this.setFoodLevel(random.nextInt(FOOD_VALUE));
-        } else {
-            this.setFoodLevel(FOOD_VALUE);
-        }
     }
 }

@@ -1,7 +1,5 @@
 package io.muzoo.ooc.ecosystems.Actors.Animals;
 
-import java.util.Random;
-
 public class Tiger extends Carnivore {
 
     // The age at which a tiger can start to breed.
@@ -15,18 +13,12 @@ public class Tiger extends Carnivore {
     // In effect, this is the number of steps before it has to eat again.
     private static final int FOOD_VALUE = 5;
 
-    public Tiger(boolean randomAge) {
-        super(Tiger.BREEDING_AGE,Tiger.MAX_AGE,Tiger.BREEDING_PROBABILITY,Tiger.MAX_LITTER_SIZE,Tiger.FOOD_VALUE);
-        this.setAge(0);
-        this.setAlive(true);
-        this.addPrey(Fox.class);
-        this.addPrey(Rabbit.class);
-        if (randomAge) {
-            Random random = new Random();
-            this.setAge(random.nextInt(MAX_AGE));
-            this.setFoodLevel(random.nextInt(FOOD_VALUE));
-        } else {
+    public Tiger() {
+        super(BREEDING_AGE, MAX_AGE, BREEDING_PROBABILITY, MAX_LITTER_SIZE, FOOD_VALUE);
+            this.setAlive(true);
+            this.setAge(0);
             this.setFoodLevel(FOOD_VALUE);
-        }
+            this.addPrey(Fox.class);
+            this.addPrey(Rabbit.class);
     }
 }

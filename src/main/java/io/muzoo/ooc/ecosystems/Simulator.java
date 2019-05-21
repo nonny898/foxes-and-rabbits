@@ -26,11 +26,11 @@ class Simulator {
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 50;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.04;
+    private static final double FOX_CREATION_PROBABILITY = 0.0;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.1;
+    private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a tiger will be created in any given grid position.
-    private static final double TIGER_CREATION_PROBABILITY = 0.07;
+    private static final double TIGER_CREATION_PROBABILITY = 0.06;
     // The probability that a male will be created in any given grid position.
     private static final double MALE_CREATION_PROBABILITY = 0.01;
     // The probability that a female will be created in any given grid position.
@@ -105,6 +105,7 @@ class Simulator {
     private void simulateOneStep() {
         step++;
         newAnimals.clear();
+        newHumans.clear();
         for (Object object : animals) {
             if (object instanceof Herbivore) {
                 Herbivore herbivore = (Herbivore) object;
@@ -113,6 +114,7 @@ class Simulator {
             } else if (object instanceof Carnivore) {
                 Carnivore carnivore = (Carnivore) object;
                 carnivore.hunt(field, updatedField, newAnimals);
+
                 carnivore.breed(carnivore.getClass(), updatedField, newAnimals, carnivore.breedingAge, carnivore.breedingProbability, carnivore.maxLitterSize);
             } else {
                 System.out.println("found unknown animal");
@@ -169,17 +171,17 @@ class Simulator {
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
                 if (rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
-                    Fox fox = new Fox(true);
+                    Fox fox = new Fox();
                     animals.add(fox);
                     fox.setLocation(row, col);
                     field.place(fox, row, col);
                 } else if (rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
-                    Rabbit rabbit = new Rabbit(true);
+                    Rabbit rabbit = new Rabbit();
                     animals.add(rabbit);
                     rabbit.setLocation(row, col);
                     field.place(rabbit, row, col);
                 } else if (rand.nextDouble() <= TIGER_CREATION_PROBABILITY) {
-                    Tiger tiger = new Tiger(true);
+                    Tiger tiger = new Tiger();
                     animals.add(tiger);
                     tiger.setLocation(row, col);
                     field.place(tiger, row, col);

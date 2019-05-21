@@ -1,5 +1,8 @@
 package io.muzoo.ooc.ecosystems.Actors.Hunters;
 
+import io.muzoo.ooc.ecosystems.Actors.Animals.Rabbit;
+import io.muzoo.ooc.ecosystems.Actors.Animals.Tiger;
+
 public class Female extends Hunter {
 
     // The age at which a female can start to breed.
@@ -18,5 +21,7 @@ public class Female extends Hunter {
         this.setAlive(true);
         this.setAge(0);
         this.setFoodLevel(FOOD_VALUE);
+        this.addPrey(Tiger.class);
+        this.addPrey(Rabbit.class);
     }
 }

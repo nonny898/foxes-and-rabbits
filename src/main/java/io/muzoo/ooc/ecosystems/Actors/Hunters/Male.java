@@ -1,5 +1,8 @@
 package io.muzoo.ooc.ecosystems.Actors.Hunters;
 
+import io.muzoo.ooc.ecosystems.Actors.Animals.Rabbit;
+import io.muzoo.ooc.ecosystems.Actors.Animals.Tiger;
+
 public class Male extends Hunter {
 
     // The age at which a Male can start to breed.
@@ -15,8 +18,10 @@ public class Male extends Hunter {
 
     public Male() {
         super(BREEDING_AGE, MAX_AGE, BREEDING_PROBABILITY, MAX_LITTER_SIZE, FOOD_VALUE);
-        this.setAlive(true);
-        this.setAge(0);
-        this.setFoodLevel(FOOD_VALUE);
+            this.setAlive(true);
+            this.setAge(0);
+            this.setFoodLevel(FOOD_VALUE);
+            this.addPrey(Tiger.class);
+            this.addPrey(Rabbit.class);
     }
 }
