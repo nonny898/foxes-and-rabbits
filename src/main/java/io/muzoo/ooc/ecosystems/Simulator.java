@@ -5,7 +5,6 @@ import io.muzoo.ooc.ecosystems.Actors.Hunters.Female;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Hunter;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Male;
 import io.muzoo.ooc.ecosystems.Actors.Animals.*;
-import io.muzoo.ooc.ecosystems.Actors.Living;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -139,7 +138,6 @@ class Simulator {
      *
      * @param field The field to be populated.
      */
-    @SuppressWarnings("unchecked")
     private void populate(Field field) {
         field.clear();
         for (int row = 0; row < field.getDepth(); row++) {

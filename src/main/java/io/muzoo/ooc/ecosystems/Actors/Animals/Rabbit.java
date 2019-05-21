@@ -1,7 +1,5 @@
 package io.muzoo.ooc.ecosystems.Actors.Animals;
 
-import java.util.Random;
-
 /**
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.

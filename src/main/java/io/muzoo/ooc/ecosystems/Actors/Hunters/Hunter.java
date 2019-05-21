@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 public class Hunter extends Living {
 
-    public Hunter(int breedingAge, int maxAge, double breedingProbability, int maxLitterSize, int foodValue) {
+    Hunter(int breedingAge, int maxAge, double breedingProbability, int maxLitterSize, int foodValue) {
         super();
         this.breedingAge = breedingAge;
         this.maxAge = maxAge;

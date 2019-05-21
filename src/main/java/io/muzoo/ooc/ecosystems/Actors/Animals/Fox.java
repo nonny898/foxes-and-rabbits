@@ -1,7 +1,5 @@
 package io.muzoo.ooc.ecosystems.Actors.Animals;
 
-import java.util.Random;
-
 /**
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.

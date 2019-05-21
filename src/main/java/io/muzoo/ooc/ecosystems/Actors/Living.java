@@ -13,17 +13,17 @@ import java.util.Random;
 
 public class Living implements Actor{
 
-    int age;
-    boolean alive;
-    Location location;
-    int foodLevel;
+    private int age;
+    private boolean alive;
+    private Location location;
+    private int foodLevel;
     public int breedingAge;
-    public int maxAge;
+    protected int maxAge;
     public double breedingProbability;
     public int maxLitterSize;
-    public int foodValue;
-    public HashSet<Class> prey;
-    Random random = new Random();
+    protected int foodValue;
+    protected HashSet<Class> prey;
+    private Random random = new Random();
 
     @Override
     public boolean canBreed(int breedingAge) {
@@ -99,6 +99,7 @@ public class Living implements Actor{
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void breed(Class<? extends Actor> instance, Field updatedField, List newActor, int breedingAge, double breedingProbability, int maxLitterSize) {
         if (this.isAlive()) {
