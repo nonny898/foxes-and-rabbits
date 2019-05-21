@@ -1,11 +1,12 @@
 package io.muzoo.ooc.ecosystems;
 
+import io.muzoo.ooc.ecosystems.Actors.ActorFactory;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Female;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Hunter;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Male;
 import io.muzoo.ooc.ecosystems.Actors.Animals.*;
+import io.muzoo.ooc.ecosystems.Actors.Living;
 
-import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,25 +26,11 @@ class Simulator {
     private static final int DEFAULT_WIDTH = 50;
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 50;
-    // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.0;
-    // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;
-    // The probability that a tiger will be created in any given grid position.
-    private static final double TIGER_CREATION_PROBABILITY = 0.06;
-    // The probability that a male will be created in any given grid position.
-    private static final double MALE_CREATION_PROBABILITY = 0.01;
-    // The probability that a female will be created in any given grid position.
-    private static final double FEMALE_CREATION_PROBABILITY = 0.01;
 
-    // The list of animals in the field
-    private List animals;
-    // The list of animals just born
-    private List newAnimals;
-    // The list of humans in the field
-    private List humans;
+    // The list of actors in the field
+    private List actors;
     // The list of human just born
-    private List newHumans;
+    private List newActors;
     // The current state of the field.
     private Field field;
     // A second field, used to build the next stage of the simulation.
@@ -66,10 +53,8 @@ class Simulator {
             depth = DEFAULT_DEPTH;
             width = DEFAULT_WIDTH;
         }
-        animals = new ArrayList();
-        newAnimals = new ArrayList();
-        humans = new ArrayList();
-        newHumans = new ArrayList();
+        actors = new ArrayList();
+        newActors = new ArrayList();
         field = new Field(depth, width);
         updatedField = new Field(depth, width);
 
@@ -104,35 +89,26 @@ class Simulator {
     @SuppressWarnings("unchecked")
     private void simulateOneStep() {
         step++;
-        newAnimals.clear();
-        newHumans.clear();
-        for (Object object : animals) {
+        newActors.clear();
+        for (Object object : actors) {
             if (object instanceof Herbivore) {
                 Herbivore herbivore = (Herbivore) object;
-                herbivore.run(updatedField, newAnimals);
-                herbivore.breed(herbivore.getClass(), updatedField, newAnimals, herbivore.breedingAge, herbivore.breedingProbability, herbivore.maxLitterSize);
+                herbivore.run(updatedField, newActors);
+                herbivore.breed(herbivore.getClass(), updatedField, newActors, herbivore.breedingAge, herbivore.breedingProbability, herbivore.maxLitterSize);
             } else if (object instanceof Carnivore) {
                 Carnivore carnivore = (Carnivore) object;
-                carnivore.hunt(field, updatedField, newAnimals);
-
-                carnivore.breed(carnivore.getClass(), updatedField, newAnimals, carnivore.breedingAge, carnivore.breedingProbability, carnivore.maxLitterSize);
-            } else {
-                System.out.println("found unknown animal");
-            }
-        }
-        for (Object object : humans) {
-            if (object instanceof Hunter) {
+                carnivore.hunt(field, updatedField, newActors);
+                carnivore.breed(carnivore.getClass(), updatedField, newActors, carnivore.breedingAge, carnivore.breedingProbability, carnivore.maxLitterSize);
+            } else if (object instanceof Hunter) {
                 Hunter hunter = (Hunter) object;
-                hunter.hunt(field, updatedField,newHumans);
-                hunter.mate(field,updatedField,newHumans);
+                hunter.hunt(field, updatedField, newActors);
+                hunter.mate(field, updatedField, newActors);
             } else {
                 System.out.println("found unknown hunter");
             }
         }
 
-        // add new born animals to the list of animals
-        animals.addAll(newAnimals);
-        humans.addAll(newHumans);
+        actors.addAll(newActors);
 
         // Swap the field and updatedField at the end of the step.
         Field temp = field;
@@ -149,8 +125,7 @@ class Simulator {
      */
     private void reset() {
         step = 0;
-        animals.clear();
-        humans.clear();
+        actors.clear();
         field.clear();
         updatedField.clear();
         populate(field);
@@ -166,39 +141,12 @@ class Simulator {
      */
     @SuppressWarnings("unchecked")
     private void populate(Field field) {
-        Random rand = new Random();
         field.clear();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
-                if (rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
-                    Fox fox = new Fox();
-                    animals.add(fox);
-                    fox.setLocation(row, col);
-                    field.place(fox, row, col);
-                } else if (rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
-                    Rabbit rabbit = new Rabbit();
-                    animals.add(rabbit);
-                    rabbit.setLocation(row, col);
-                    field.place(rabbit, row, col);
-                } else if (rand.nextDouble() <= TIGER_CREATION_PROBABILITY) {
-                    Tiger tiger = new Tiger();
-                    animals.add(tiger);
-                    tiger.setLocation(row, col);
-                    field.place(tiger, row, col);
-                } else if (rand.nextDouble() <= MALE_CREATION_PROBABILITY) {
-                    Male male = new Male();
-                    humans.add(male);
-                    male.setLocation(row, col);
-                    field.place(male, row, col);
-                } else if (rand.nextDouble() <= FEMALE_CREATION_PROBABILITY) {
-                    Female female = new Female();
-                    humans.add(female);
-                    female.setLocation(row, col);
-                    field.place(female, row, col);
-                }
+                ActorFactory.createActor(actors, row, col, field);
             }
         }
-        Collections.shuffle(animals);
-        Collections.shuffle(humans);
+        Collections.shuffle(actors);
     }
 }
