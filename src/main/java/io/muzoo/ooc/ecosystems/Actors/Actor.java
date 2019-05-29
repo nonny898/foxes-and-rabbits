@@ -1,7 +1,7 @@
 package io.muzoo.ooc.ecosystems.Actors;
 
-import io.muzoo.ooc.ecosystems.Field;
-import io.muzoo.ooc.ecosystems.Location;
+import io.muzoo.ooc.ecosystems.Location.Field;
+import io.muzoo.ooc.ecosystems.Location.Location;
 
 import java.util.List;
 

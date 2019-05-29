@@ -33,7 +33,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>io.muzoo.ooc.ecosystems.Application</mainClass>
+                            <mainClass>io.muzoo.ooc.ecosystems.Application.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

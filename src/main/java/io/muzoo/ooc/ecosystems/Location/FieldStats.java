@@ -1,4 +1,6 @@
-package io.muzoo.ooc.ecosystems;
+package io.muzoo.ooc.ecosystems.Location;
+
+import io.muzoo.ooc.ecosystems.Simulations.Counter;
 
 import java.util.HashMap;
 
@@ -10,7 +12,7 @@ import java.util.HashMap;
  * @author David J. Barnes and Michael Kolling
  * @version 2002.04.23
  */
-class FieldStats {
+public class FieldStats {
     // Counters for each type of entity (fox, rabbit, etc.) in the simulation.
     private HashMap counters;
     // Whether the counters are currently up to date.
@@ -19,7 +21,7 @@ class FieldStats {
     /**
      * Construct a field-statistics object.
      */
-    FieldStats() {
+    public FieldStats() {
         // Set up a collection for counters for each type of animal that
         // we might find
         counters = new HashMap();
@@ -29,7 +31,7 @@ class FieldStats {
     /**
      * @return A string describing what animals are in the field.
      */
-    String getPopulationDetails(Field field) {
+    public String getPopulationDetails(Field field) {
         StringBuilder buffer = new StringBuilder();
         if (!countsValid) {
             generateCounts(field);
@@ -48,7 +50,7 @@ class FieldStats {
      * Invalidate the current set of statistics; reset all
      * counts to zero.
      */
-    void reset() {
+    public void reset() {
         countsValid = false;
         for (Object o : counters.keySet()) {
             Counter cnt = (Counter) counters.get(o);
@@ -60,7 +62,7 @@ class FieldStats {
      * Increment the count for one class of animal.
      */
     @SuppressWarnings("unchecked")
-    void incrementCount(Class animalClass) {
+    public void incrementCount(Class animalClass) {
         Counter cnt = (Counter) counters.get(animalClass);
         if (cnt == null) {
             // we do not have a counter for this species yet - create one
@@ -73,7 +75,7 @@ class FieldStats {
     /**
      * Indicate that an animal count has been completed.
      */
-    void countFinished() {
+    public void countFinished() {
         countsValid = true;
     }
 
@@ -83,7 +85,7 @@ class FieldStats {
      *
      * @return true If there is more than one species alive.
      */
-    boolean isViable(Field field) {
+    public boolean isViable(Field field) {
         // How many counts are non-zero.
         int nonZero = 0;
         if (!countsValid) {

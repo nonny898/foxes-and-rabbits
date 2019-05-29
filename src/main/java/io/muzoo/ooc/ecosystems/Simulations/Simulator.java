@@ -1,10 +1,11 @@
-package io.muzoo.ooc.ecosystems;
+package io.muzoo.ooc.ecosystems.Simulations;
 
 import io.muzoo.ooc.ecosystems.Actors.ActorFactory;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Female;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Hunter;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Male;
 import io.muzoo.ooc.ecosystems.Actors.Animals.*;
+import io.muzoo.ooc.ecosystems.Location.Field;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.awt.Color;
  * @author David J. Barnes and Michael Kolling
  * @version 2002.10.28
  */
-class Simulator {
+public class Simulator {
     // The private static final variables represent 
     // configuration information for the simulation.
     // The default width for the grid.
@@ -45,7 +46,7 @@ class Simulator {
      * @param depth Depth of the field. Must be greater than zero.
      * @param width Width of the field. Must be greater than zero.
      */
-    Simulator(int depth, int width) {
+    public Simulator(int depth, int width) {
         if (width <= 0 || depth <= 0) {
             System.out.println("The dimensions must be greater than zero.");
             System.out.println("Using default values.");
@@ -74,7 +75,7 @@ class Simulator {
      * Stop before the given number of steps if it ceases to be viable.
      */
     @SuppressWarnings("SameParameterValue")
-    void simulate(int numSteps) {
+    public void simulate(int numSteps) {
         for (int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
         }

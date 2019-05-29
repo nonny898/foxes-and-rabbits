@@ -1,4 +1,4 @@
-package io.muzoo.ooc.ecosystems;
+package io.muzoo.ooc.ecosystems.Location;
 
 /**
  * Represent a location in a rectangular grid.

@@ -1,4 +1,4 @@
-package io.muzoo.ooc.ecosystems;
+package io.muzoo.ooc.ecosystems.Location;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -26,7 +26,7 @@ public class Field {
      * @param depth The depth of the field.
      * @param width The width of the field.
      */
-    Field(int depth, int width) {
+    public Field(int depth, int width) {
         this.depth = depth;
         this.width = width;
         field = new Object[depth][width];
@@ -35,7 +35,7 @@ public class Field {
     /**
      * Empty the field.
      */
-    void clear() {
+    public void clear() {
         for (int row = 0; row < depth; row++) {
             for (int col = 0; col < width; col++) {
                 field[row][col] = null;
@@ -85,7 +85,7 @@ public class Field {
      * @param col The desired column.
      * @return The animal at the given location, or null if there is none.
      */
-    Object getObjectAt(int row, int col) {
+    public Object getObjectAt(int row, int col) {
         return field[row][col];
     }
 
@@ -175,14 +175,14 @@ public class Field {
     /**
      * @return The depth of the field.
      */
-    int getDepth() {
+    public int getDepth() {
         return depth;
     }
 
     /**
      * @return The width of the field.
      */
-    int getWidth() {
+    public int getWidth() {
         return width;
     }
 }

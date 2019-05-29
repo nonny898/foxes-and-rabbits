@@ -5,7 +5,7 @@ import io.muzoo.ooc.ecosystems.Actors.Animals.Rabbit;
 import io.muzoo.ooc.ecosystems.Actors.Animals.Tiger;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Female;
 import io.muzoo.ooc.ecosystems.Actors.Hunters.Male;
-import io.muzoo.ooc.ecosystems.Field;
+import io.muzoo.ooc.ecosystems.Location.Field;
 
 import java.util.LinkedHashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package io.muzoo.ooc.ecosystems;
+package io.muzoo.ooc.ecosystems.Simulations;
 
 /**
  * Provide a counter for a participant in the simulation.
@@ -9,7 +9,7 @@ package io.muzoo.ooc.ecosystems;
  * @author David J. Barnes and Michael Kolling
  * @version 2002.04.23
  */
-class Counter {
+public class Counter {
     // A name for this type of simulation participant
     private String name;
     // How many of this type exist in the simulation.
@@ -20,7 +20,7 @@ class Counter {
      *
      * @param name A name, e.g. "Fox".
      */
-    Counter(String name) {
+    public Counter(String name) {
         this.name = name;
         count = 0;
     }
@@ -28,28 +28,28 @@ class Counter {
     /**
      * @return The short description of this type.
      */
-    String getName() {
+    public String getName() {
         return name;
     }
 
     /**
      * @return The current count for this type.
      */
-    int getCount() {
+    public int getCount() {
         return count;
     }
 
     /**
      * Increment the current count by one.
      */
-    void increment() {
+    public void increment() {
         count++;
     }
 
     /**
      * Reset the current count to zero.
      */
-    void reset() {
+    public void reset() {
         count = 0;
     }
 }
